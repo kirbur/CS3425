@@ -1,0 +1,295 @@
+create table camp(
+	num int AUTO_INCREMENT,
+	name varchar(30) not null,
+	start_date date,
+	end_date date,
+	location varchar(40) not null,
+	brochure varchar(30),
+	reg_fee float(4, 2) not null,
+	primary key (num, name));
+
+create table session(
+	num int primary key AUTO_INCREMENT,
+	date date not null,
+	start time not null,
+	end time not null,
+	comments varchar(600),
+	ice_fee float(4, 2) not null,
+	camp_number int not null,
+	foreign key (camp_number) references camp(num));
+
+create table coach(
+	name char(30) not null,
+	email char(30) primary key,
+	password char(10) not null,
+	address char(40) not null,
+	phone int(10) not null,
+	price float(4, 2) not null,
+	bio varchar(600),
+	camp_number int not null,
+	foreign key (camp_number) references camp(num));
+  
+create table camper(
+	name char(30) not null,
+	email char(30) primary key,
+	password char(10) not null,
+	address char (40) not null,
+	phone int(10) not null,
+	emergency_contact int(10),
+	camp_number int not null,
+	foreign key (camp_number) references camp(num)); 
+
+create table slot(			
+	date date not null,
+	start time not null,
+	end time not null,
+	num int not null,
+	coach_email char(30),
+	camper_email char(30),
+	camp_number int not null,
+	primary key ( date, start, num ),
+	foreign key (num) references session(num),
+	foreign key (coach_email) references coach(email),
+	foreign key (camper_email) references camper(email),
+	foreign key (camp_number) references camp(num));
+
+
+///////////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////////////////
+create procedure addSession( date date, start_time time, price float(4, 2), campNum int )
+	begin
+	insert into session( date, start, end, ice_fee, camp_number ) values ( date, start_time, addtime(start_time, '00:45:00'), price, campNum);
+	end//
+
+create procedure addSlot( date date, start_time time, num int, campNum int )
+	begin
+	insert into slot( date, start, end, num, camp_number ) values ( date, start_time, addtime(start_time, '00:15:00'), num, campNum );
+	end//
+
+create procedure addCoach( name char(30), email char(30), password char(10), address char(40), phone int(10), price float(4, 2), campNum int)
+	begin
+	insert into coach(name, email, password, address, phone, price, camp_number) values(name, email, password, address, phone, price, campNum);
+	end//
+
+create procedure addCamp( name varchar(30), start date, end date, location varchar(40), brochure varchar(30), fee float(4, 2) )
+	begin
+	insert into camp( name, start_date, end_date, location, brochure, reg_fee) values (name, start, end, location, brochure, fee);
+	end//
+
+create trigger sessionSlots after insert on session for each row
+	begin
+	call addSlot( NEW.date, NEW.start, NEW.num, NEW.camp_number);
+	call addSlot( NEW.date, addtime(NEW.start, '00:15:00'), NEW.num, NEW.camp_number);
+	call addSlot( NEW.date, addtime(NEW.start, '00:30:00'), NEW.num, NEW.camp_number);
+	end//
+
+///////////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// ALL STUFF IN WEBSITE:											///
+///	create function chooseSlot( email, date, start_time, 							///
+///		for coaches - update slotset coach = "whoever is doing this" where stuff = stuff  		///
+///														///
+///	create function register( email, date, start_time, 							///
+///		for campers- update slotset camper= "whoever is doing this" where stuff = stuff  		///
+///														///
+///	create veiw availSlots //show the camper what they can register for, only slots where coach != null	///
+///														///
+///	create veiw availSlots //show the coach which slots are available					///
+///														///
+///	create view camperSched											///
+///														///
+///	create view camperbill											///
+///														///
+///	create view coachSched											///
+///														///
+///	create view availteachingslots for coach to choose from							///
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////////////////
+grant select, delete, update, insert on camp to 'cs3425gr'@'%';
+grant select, delete, update, insert on session to 'cs3425gr'@'%';
+grant select, delete, update, insert on slot to 'cs3425gr'@'%';
+grant select, delete, update, insert on coach to 'cs3425gr'@'%';
+grant select, delete, update, insert on camper to 'cs3425gr'@'%';
+grant execute on procedure addSession to 'cs3425gr'@'%';
+grant execute on procedure addSlot to 'cs3425gr'@'%';
+grant execute on procedure addCoach to 'cs3425gr'@'%';
+grant execute on procedure addcamp to 'cs3425gr'@'%';
+///////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////
+call addCoach('Alice', 'alice@', 'alice', 'address', 1234567890, 10, 1);
+call addCoach('Joe', 'joe@', 'joe', 'address', 0192837465, 12, 1);
+
+call addSession('2018-08-07', '08:00', 15.0, 1);
+call addSession('2018-08-07', '08:45', 15.0, 1);
+call addSession('2018-08-07', '09:30', 15.0, 1);
+call addSession('2018-08-07', '10:30', 15.0, 1);
+call addSession('2018-08-07', '11:15', 15.0, 1);
+call addSession('2018-08-07', '12:00', 15.0, 1);
+
+call addSession('2018-08-08', '08:00', 15.0, 1);
+call addSession('2018-08-08', '08:45', 15.0, 1);
+call addSession('2018-08-08', '09:30', 15.0, 1);
+call addSession('2018-08-08', '10:30', 15.0, 1);
+call addSession('2018-08-08', '11:15', 15.0, 1);
+call addSession('2018-08-08', '12:00', 15.0, 1);
+
+call addCoach('Jennifer Bukovich', 'jb@email', 'password', 'address', 00000, 12.5, 1);
+call addCoach('Jessica Comfort', 'jc@email', 'password', 'address', 00000, 12, 1);
+call addCoach('Sherry Karnosky', 'sk@email', 'password', 'address', 00000, 10, 1);
+///////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+create table 2camp(
+	num int AUTO_INCREMENT,
+	name varchar(30) not null,
+	start_date date,
+	end_date date,
+	location varchar(40) not null,
+	brochure varchar(30),
+	reg_fee float(4, 2) not null,
+	primary key (num, name));
+
+create table 2session(
+	num int primary key AUTO_INCREMENT,
+	date date not null,
+	start time not null,
+	end time not null,
+	comments varchar(600),
+	ice_fee float(4, 2) not null,
+	camp_number int not null,
+	foreign key (camp_number) references camp(num));
+
+create table 2coach(
+	name char(30) not null,
+	email char(30) primary key,
+	password char(42) not null,
+	address char(40) not null,
+	phone int(10) not null,
+	price float(4, 2) not null,
+	bio varchar(600),
+	camp_number int not null,
+	foreign key (camp_number) references camp(num));
+  
+create table 2camper(
+	name char(30) not null,
+	email char(30) primary key,
+	password char(42) not null,
+	address char (40) not null,
+	phone int(10) not null,
+	emergency_contact int(10),
+	camp_number int not null,
+	foreign key (camp_number) references camp(num)); 
+
+create table 2slot(			
+	date date not null,
+	start time not null,
+	end time not null,
+	num int not null,
+	coach_email char(30),
+	camper_email char(30),
+	camp_number int not null,
+	primary key ( date, start, num ),
+	foreign key (num) references session(num),
+	foreign key (coach_email) references coach(email),
+	foreign key (camper_email) references camper(email),
+	foreign key (camp_number) references camp(num));
+
+
+drop procedure 2addSession;
+drop procedure 2addSlot;
+drop procedure 2addCoach;
+drop procedure 2addCamp;
+drop trigger 2sessionSlots;
+delimiter //
+
+create procedure 2addSession( date date, start_time time, price float(4, 2), campNum int )
+	begin
+	insert into 2session( date, start, end, ice_fee, camp_number ) values ( date, start_time, addtime(start_time, '00:45:00'), price, campNum);
+	end//
+
+create procedure 2addSlot( date date, start_time time, num int, campNum int )
+	begin
+	insert into 2slot( date, start, end, num, camp_number ) values ( date, start_time, addtime(start_time, '00:15:00'), num, campNum );
+	end//
+
+create procedure 2addCoach( name char(30), email char(30), password char(42), address char(40), phone int(10), price float(4, 2), campNum int)
+	begin
+	insert into 2coach(name, email, password, address, phone, price, camp_number) values(name, email, password('password'), address, phone, price, campNum);
+	end//
+
+create procedure 2addCamp( name varchar(30), start date, end date, location varchar(40), brochure varchar(30), fee float(4, 2) )
+	begin
+	insert into 2camp( name, start_date, end_date, location, brochure, reg_fee) values (name, start, end, location, brochure, fee);
+	end//
+
+create trigger 2sessionSlots after insert on session for each row
+	begin
+	call 2addSlot( NEW.date, NEW.start, NEW.num, NEW.camp_number);
+	call 2addSlot( NEW.date, addtime(NEW.start, '00:15:00'), NEW.num, NEW.camp_number);
+	call 2addSlot( NEW.date, addtime(NEW.start, '00:30:00'), NEW.num, NEW.camp_number);
+	end//
+delimiter ;
+
+grant select, delete, update, insert on 2camp to 'cs3425gr'@'%';
+grant select, delete, update, insert on 2session to 'cs3425gr'@'%';
+grant select, delete, update, insert on 2slot to 'cs3425gr'@'%';
+grant select, delete, update, insert on 2coach to 'cs3425gr'@'%';
+grant select, delete, update, insert on 2camper to 'cs3425gr'@'%';
+grant execute on procedure 2addSession to 'cs3425gr'@'%';
+grant execute on procedure 2addSlot to 'cs3425gr'@'%';
+grant execute on procedure 2addCoach to 'cs3425gr'@'%';
+grant execute on procedure 2addcamp to 'cs3425gr'@'%';
+
+call 2addCamp('camp', '2018-01-01', '2018-02-01', 'N/A', 'N/A', 20);
+
+call 2addCoach('Alice', 'alice@', 'alice', 'address', 1234567890, 10, 1);
+call 2addCoach('Joe', 'joe@', 'joe', 'address', 0192837465, 12, 1);
+
+call 2addSession('2018-08-07', '08:00', 15.0, 1);
+call 2addSession('2018-08-07', '08:45', 15.0, 1);
+call 2addSession('2018-08-07', '09:30', 15.0, 1);
+call 2addSession('2018-08-07', '10:30', 15.0, 1);
+call 2addSession('2018-08-07', '11:15', 15.0, 1);
+call 2addSession('2018-08-07', '12:00', 15.0, 1);
+
+call 2addSession('2018-08-08', '08:00', 15.0, 1);
+call 2addSession('2018-08-08', '08:45', 15.0, 1);
+call 2addSession('2018-08-08', '09:30', 15.0, 1);
+call 2addSession('2018-08-08', '10:30', 15.0, 1);
+call 2addSession('2018-08-08', '11:15', 15.0, 1);
+call 2addSession('2018-08-08', '12:00', 15.0, 1);
+
+call 2addCoach('Jennifer Bukovich', 'jb@email', 'password', 'address', 00000, 12.5, 1);
+call 2addCoach('Jessica Comfort', 'jc@email', 'password', 'address', 00000, 12, 1);
+call 2addCoach('Sherry Karnosky', 'sk@email', 'password', 'address', 00000, 10, 1);

@@ -1,0 +1,356 @@
+html{
+	min-width: 100%;
+	min-height: 100%;
+}
+body { 
+	width: 1024px
+	height: 1024px
+	margin: 0;
+	padding: 20px;
+	color: #000;
+	background: #496645;/*#596d8c;/*#B8B8B8;#320032; */
+	}
+h3 {
+   font-family: Arial;
+   opacity: 1;
+   font-size: 42px;
+	text-align: center;
+	color: #fff;
+      
+}
+#wrap {
+	float: center;
+	/*width: 90%;/*750px;*/
+	background: #e8e8e8;
+    
+	margin:0 auto;
+	padding: 10px;
+   
+	
+	/*min-width: 400px;
+	min-height:650px;*/
+   background-image: url("images.jpg");
+      width: 1024px;
+      height: 650px;
+		
+		box-shadow: 0px 0px 100px 1px black;
+		position: absolute:
+}
+#main {
+	
+	float:center;
+	/*width: 100%;520px;*/ 
+	
+	margin:0 auto;
+	padding: 20px;
+	height:610px;
+	/*background: #383838;
+   opacity: .8;*/
+   background-color: rgb(56, 56, 56, .8);
+    	
+}
+#main h1 {
+   opacity: 1;
+   font-size: 72px;
+	text-align: center;
+	color: #fff;
+   
+}
+.scroll {
+   height: 500px;
+   overflow-y: scroll;
+   
+}
+#yup {
+   margin-left: auto;
+   margin-right: auto;
+   width: 700px;
+   height: 400px;
+   background-color: rgb(129, 169, 234, 20%);
+}
+#finalSched {
+   color: white;
+   font-family: Arial;
+   width: 600px;
+   background-color:transparent;
+   border-collapse: collapse;
+   border: 1px solid black;
+   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+#finalSched th, td{
+   border-bottom: 0px;
+  /* box-shadow: 0 12px 16px 0 rgba(0,0,0,0.10), 0 17px 50px 0 rgba(0,0,0,0.10);*/
+}
+
+#finalSched tr:hover {
+   background-color: #f5f5f5;
+   color: black;
+}
+#finalSched th {
+   color: black;
+}
+
+
+#biotxt {
+   width: 380px;
+   height: 400px;
+   
+}
+
+#text {
+   margin-left: auto;
+   margin-right: auto;
+   color: black;
+   background: #e8e8e8;
+   min-height: 180px;
+   padding: 2px;
+   width: 450px;
+}
+
+#bio {
+   height: 480px;
+}
+#text b {
+   font-size: 18px;
+   padding: 1px;
+}
+#text p {
+   text-align: left;
+   font-size: 15px;
+   color: black;
+}
+
+table td, table td * {
+
+    vertical-align: top;
+}
+#info {
+   width:98%;
+  /* height: 80%;
+   bottom: 60%;*/
+   font-size: 24px;
+   float: right;
+   text-align: center;
+   opacity: 1;
+   max-height:610px;
+  /* text-shadow: 0 0 1px white;*/
+  
+  
+   
+  /* overflow-y: scroll;*/
+   
+   font-size: 18px;
+}
+
+#nav {
+		padding:10px 10px;
+		opacity: 1;
+		}
+
+#nav ul {
+		position: fixed;
+		max-width: 150px;
+  		top: 0;
+      left:100px;
+		margin:0;
+		padding:0;
+		list-style:none;
+      background-color:#053d0a;
+      box-shadow: 0px 0px 50px 0.1px black;
+		}
+#nav li {
+		display:  inline;
+		
+		margin:0;
+		padding:0;
+      
+		}
+#nav li a{
+	display: block;
+    	color: white;
+   	text-align: center;
+   	padding: 10px 12px;
+   	text-decoration: none;
+      font-size: 18px;
+      font-family: Arial;
+}
+#nav li p{
+   background-color: rgba(0, 0, 0, 20%);
+	display: block;
+    	color: white;
+   	text-align: center;
+   	text-decoration: none;
+      font-size: 18px;
+      font-family: Arial;
+}
+.but {
+	text-align:center;
+   opacity: 100%;
+}
+
+.box {
+	background-color: #B8B8B8;
+	float: center;
+	width:350px;
+	font-size: 50px;
+	padding: 14px 40px;
+	/*box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);*/
+   opacity: 100%;
+   border: 0px;
+   
+   -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.box:hover {
+    background-color: #496645;/*#4CAF50;*/
+    color: white;
+}
+
+p {
+   color: #fff;
+   
+}
+table {
+    border-collapse: collapse;
+}
+th, td {
+    padding: 2px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    
+}
+
+.schedule th {
+    background-color: lightgrey;
+    color: black;
+}
+.schedule td {
+   padding: 5px;
+   
+}
+.schedule tr:hover {background-color: #f5f5f5; color: black;}
+
+.schedule {
+   font-size: 18px;
+   color: white;
+   background-color:transparent;
+   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+
+#schedtables {
+   margin-left: auto;
+   margin-right: auto;
+   width: 450px;
+   height: 400px;
+   background-color: rgb(129, 169, 234, 40%);
+}
+
+
+
+
+#mainTable {
+   background-color = grey; 
+   color: white;
+   font-family: Arial;
+   font-size: 34px;
+}
+#regi {
+   font-size: 18px;
+}
+
+#myform {
+   float: center;
+}
+.container {
+   float: center;
+   color: #fff;
+   font-size: 36px;
+}
+.txtbox {
+   width: 200px;
+   height: 30px;
+   
+}
+.btn {
+   font-size: 36px;
+   width: 200px;
+   height: 50px;
+}
+
+button {
+   font-family: Arial;
+}
+
+.bot {
+   height: 35px;
+}
+
+#camper {
+   font-size: 24px;
+   margin-left: auto;
+   margin-right: auto;
+   margin-top: 0px;
+   width: 700px;
+   height: 400px;
+   background-color: rgb(129, 169, 234, 40%);
+}
+
+#camperInfo {
+  margin-left: 50px;
+  margin-right: auto;
+  width: 700px;
+}
+
+#camperStuff {
+  width: 450px;
+  height: 450px;
+}
+#camperSched {
+  width: 430px;
+}
+#usrform {
+   color: white;
+   margin-left: auto;
+   margin-right: auto;
+   margin-top: 10px;
+}
+
+.ci {
+   background-color: rgb(129, 169, 234, 40%);
+   padding: 5px;
+}
+
+.ci h2 {
+   font-family: Arial;
+   text-decoration: none;
+   
+   font-size: 18px;
+}
+
+.ci p {
+   font-family: Arial;
+   font-size: 18px;
+   margin-left: 20px;
+}
+
+span { white-space: pre; }
+
+#coachdiv {
+   margin-left: 50px;
+   margin-right: auto;
+   width: 900px;
+   height:480px;
+}
+
+/* Change the link color on hover */
+li a:hover {
+    		background-color: #4d5d77
+    		color: #222;
+		}
+
+a:link { text-decoration: none; color: #3A003A; }
+a:visited { text-decoration: none; color: #191947; }
+a:hover { text-decoration: none; color:black; background-color: #4d5d77 ; }
+a:active { text-decoration: none;color: black; background-color: #4d5d77; }
